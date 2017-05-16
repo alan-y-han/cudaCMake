@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "printCubes.hpp"
 
 __global__ void cube(float * d_out, float * d_in){
     int id = threadIdx.x;
@@ -22,7 +23,7 @@ void printCubes() {
     float * d_out;
 
     // allocate GPU memory
-    cudaMalloc((void**) &d_in, ARRAY_BYTES);
+    checkCudaErrors(cudaMalloc((void**) &d_in, ARRAY_BYTES));
     cudaMalloc((void**) &d_out, ARRAY_BYTES);
 
     // transfer the array to the GPU

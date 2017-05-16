@@ -12,10 +12,17 @@ set(
     -Wextra
     )
 
+# Find all source files
+file(GLOB_RECURSE SRC "src/*.cpp")
+file(GLOB_RECURSE CUDASRC "src/*.cu")
+file(GLOB_RECURSE HDR "include/*.h")
+list(APPEND SRC ${HDR})
+list(APPEND SRC ${CUDASRC})
+
 # Specify binary name and source file to build it from
 cuda_add_library(
     ${PROJECT_NAME}
-    src/printCubes.cu)
+    ${SRC})
 
 target_include_directories(${PROJECT_NAME} PUBLIC "include")
 

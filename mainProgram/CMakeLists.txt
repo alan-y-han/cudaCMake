@@ -8,10 +8,16 @@ function(cond_find_package TARGET_NAME)
   endif()
 endfunction()
 
-
 cond_find_package(printCubes REQUIRED)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+# Find all source files
+file(GLOB_RECURSE SRC "src/*.cpp")
+file(GLOB_RECURSE CUDASRC "src/*.cu")
+file(GLOB_RECURSE HDR "include/*.h")
+list(APPEND SRC ${HDR})
+list(APPEND SRC ${CUDASRC})
+
+add_executable(${PROJECT_NAME} ${SRC})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC "printCubes")
 
