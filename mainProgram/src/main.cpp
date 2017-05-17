@@ -1,4 +1,4 @@
-#include "printCubes.hpp"
+#include "printCubes.h"
 
 int main(int argc, char const *argv[])
 {

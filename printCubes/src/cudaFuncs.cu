@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include "printCubes.hpp"
+#include <cstdio>
+#include "cudaUtils.h"
 
 __global__ void cube(float * d_out, float * d_in){
     int id = threadIdx.x;
@@ -7,7 +7,7 @@ __global__ void cube(float * d_out, float * d_in){
     d_out[id] = value * value * value;
 }
 
-void printCubes() {
+void cudaPrintCubes() {
     const int ARRAY_SIZE = 96;
     const int ARRAY_BYTES = ARRAY_SIZE * sizeof(float);
 

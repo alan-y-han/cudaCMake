@@ -1,16 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 project(printCubes)
 
-find_package(CUDA QUIET REQUIRED)
+find_package(CUDA REQUIRED)
 
 # Pass options to NVCC
-set(
-    CUDA_NVCC_FLAGS
-    ${CUDA_NVCC_FLAGS}
-    -O3
-    -Xcompiler
-    -Wextra
-    )
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS}
+    -O3 -Xcompiler -Wextra)
 
 # Find all source files
 file(GLOB_RECURSE SRC "src/*.cpp")
@@ -20,17 +15,13 @@ list(APPEND SRC ${HDR})
 list(APPEND SRC ${CUDASRC})
 
 # Specify binary name and source file to build it from
-cuda_add_library(
-    ${PROJECT_NAME}
-    ${SRC})
+cuda_add_library(${PROJECT_NAME} ${SRC})
 
 target_include_directories(${PROJECT_NAME} PUBLIC "include")
 
-
 export(PACKAGE ${PROJECT_NAME})
 export(TARGETS ${PROJECT_NAME}
-  FILE "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-)
+  FILE "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake")
 
 
 # ### CMakeLists.txt for CUDA
